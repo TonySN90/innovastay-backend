@@ -1,13 +1,19 @@
 import dotenv from 'dotenv';
-import app from "./app";
+import createApp from "./app";
 import { connectDB } from './src/config/database';
 
 dotenv.config({ path: './config.env' });
 
-connectDB();
+const startServer = async () => {
+  await connectDB();
+  
+  const app = await createApp();
+  const PORT = process.env.PORT || 2000;
 
-const PORT = process.env.PORT || 2000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Admin panel available at http://localhost:${PORT}/admin`);
+  });
+};
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+startServer().catch(console.error);
