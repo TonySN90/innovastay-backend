@@ -1,29 +1,71 @@
-import AdminJS from 'adminjs'
-import LandlordModel from '../models/landlordModel'
-import LodgingModel from '../models/lodgingModel'
+import AdminJS from "adminjs";
+import LandlordModel from "../models/landlordModel";
+import LodgingModel from "../models/lodgingModel";
+import AdministratorModel from "../models/administratorModel";
 
 const setupAdminJS = () => {
   try {
     // Use absolute paths to the modules
-    const AdminJSExpress = require('/Users/tonyheider/Dev/innovastay-backend/node_modules/@adminjs/express/lib/index.js')
-    const AdminJSMongoose = require('/Users/tonyheider/Dev/innovastay-backend/node_modules/@adminjs/mongoose/lib/index.js')
+    const AdminJSExpress = require("/Users/tonyheider/Dev/innovastay-backend/node_modules/@adminjs/express/lib/index.js");
+    const AdminJSMongoose = require("/Users/tonyheider/Dev/innovastay-backend/node_modules/@adminjs/mongoose/lib/index.js");
 
     AdminJS.registerAdapter({
       Resource: AdminJSMongoose.Resource,
       Database: AdminJSMongoose.Database,
-    })
+    });
 
     const adminJs = new AdminJS({
       resources: [
+        {
+          resource: AdministratorModel,
+          options: {
+            properties: {
+              password: {
+                isVisible: {
+                  list: false,
+                  filter: false,
+                  show: false,
+                  edit: true,
+                },
+              },
+              passwordConfirm: {
+                isVisible: {
+                  list: false,
+                  filter: false,
+                  show: false,
+                  edit: true,
+                },
+              },
+              isActive: {
+                isVisible: {
+                  list: false,
+                  filter: false,
+                  show: false,
+                  edit: true,
+                },
+              },
+            },
+          },
+        },
         {
           resource: LandlordModel,
           options: {
             properties: {
               password: {
-                isVisible: { list: false, filter: false, show: false, edit: true },
+                isVisible: {
+                  list: false,
+                  filter: false,
+                  show: false,
+                  edit: true,
+                },
               },
               passwordConfirm: {
-                isVisible: { list: false, filter: false, show: false, edit: true },
+                isVisible: {
+                  list: false,
+                  filter: false,
+                  show: false,
+                  edit: true,
+                },
               },
             },
           },
@@ -33,34 +75,50 @@ const setupAdminJS = () => {
           options: {
             properties: {
               images: {
-                type: 'string',
+                type: "string",
                 isArray: true,
               },
               amenities: {
-                type: 'string', 
+                type: "string",
                 isArray: true,
               },
               services: {
-                type: 'string',
+                type: "string",
                 isArray: true,
               },
             },
           },
         },
       ],
-      rootPath: '/admin',
+      rootPath: "/admin",
       branding: {
-        companyName: 'Innovastay',
+        companyName: "Innovastay - Admin Panel",
         theme: {},
+        logo: false,
+        withMadeWithLove: false,
+        favicon: "/favicon.ico",
       },
-    })
+      locale: {
+        language: "de",
+        translations: {
+          messages: {
+            loginWelcome: "Willkommen im Innovastay Admin-Bereich",
+          },
+          labels: {
+            logout: "Abmelden",
+          },
+        },
+      },
+    });
 
-    const adminRouter = AdminJSExpress.buildRouter(adminJs)
-    return { adminJs, adminRouter }
+    console.log("Setting up AdminJS with custom authentication...");
+    const adminRouter = AdminJSExpress.buildRouter(adminJs);
+
+    return { adminJs, adminRouter };
   } catch (error) {
-    console.error('AdminJS setup error:', error)
-    throw error
+    console.error("AdminJS setup error:", error);
+    throw error;
   }
-}
+};
 
-export { setupAdminJS }
+export { setupAdminJS };
