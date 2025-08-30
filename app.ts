@@ -9,8 +9,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-connectDB();
-
 app.use('/api/test', testRoutes);
 
 app.get('/', (req, res) => {
