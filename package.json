@@ -1,0 +1,23 @@
+{
+  "name": "innovastay-backend",
+  "version": "1.0.0",
+  "description": "innovastay-backend",
+  "homepage": "https://github.com/TonySN90/innovastay-backend#readme",
+  "bugs": {
+    "url": "https://github.com/TonySN90/innovastay-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TonySN90/innovastay-backend.git"
+  },
+  "license": "ISC",
+  "author": "Tony Heider",
+  "type": "commonjs",
+  "main": "server.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-code": "^1.0.98"
+  }
+}
