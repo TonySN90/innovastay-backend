@@ -127,13 +127,25 @@ npm run lint:fix
 
 ### 📋 Data Models
 
-#### Lodging Model
+#### Lodging Model (Multilingual)
 ```typescript
 {
-  name: String (required)
+  name_de: String (required)
+  name_en: String (required)
+  name_fr: String (required)
+  name_ru: String (required)
+  name_cs: String (required)
+  name_it: String (required)
+  name_es: String (required)
   maxNumGuests: Number (required)
-  pricePerNight: Number (required) 
-  description: String (required)
+  pricePerNight: Number (required)
+  description_de: String (required)
+  description_en: String (required)
+  description_fr: String (required)
+  description_ru: String (required)
+  description_cs: String (required)
+  description_it: String (required)
+  description_es: String (required)
   location: String (required)
   images: [String] (required)
   amenities: [ObjectId] (ref: "Amenities")
@@ -142,25 +154,78 @@ npm run lint:fix
 }
 ```
 
-#### Amenities Model
+#### Amenities Model (Multilingual)
 ```typescript
 {
-  name: String (required, unique)
-  description: String (required)
+  name_de: String (required, unique)
+  name_en: String (required)
+  name_fr: String (required)
+  name_ru: String (required)
+  name_cs: String (required)
+  name_it: String (required)
+  name_es: String (required)
+  description_de: String (required)
+  description_en: String (required)
+  description_fr: String (required)
+  description_ru: String (required)
+  description_cs: String (required)
+  description_it: String (required)
+  description_es: String (required)
   icon: String (optional)
   timestamps: true
 }
 ```
 
-#### LodgingServices Model  
+#### LodgingServices Model (Multilingual)
 ```typescript
 {
-  name: String (required, unique)
-  description: String (required)
+  name_de: String (required, unique)
+  name_en: String (required)
+  name_fr: String (required)
+  name_ru: String (required)
+  name_cs: String (required)
+  name_it: String (required)
+  name_es: String (required)
+  description_de: String (required)
+  description_en: String (required)
+  description_fr: String (required)
+  description_ru: String (required)
+  description_cs: String (required)
+  description_it: String (required)
+  description_es: String (required)
   icon: String (optional)
   timestamps: true
 }
 ```
+
+#### Administrator Model (Single Language)
+```typescript
+{
+  name: String (required)
+  email: String (required, unique, validated)
+  password: String (required, bcrypt hashed)
+  passwordConfirm: String (required for creation)
+  role: String (enum: 'admin', 'superadmin', default: 'admin')
+  isActive: Boolean (default: true)
+  timestamps: true
+}
+```
+
+### 🌍 Multilingual Support
+All content models (Lodgings, Amenities, LodgingServices) support 7 languages:
+- **German (de)** - Primary language (unique constraints)
+- **English (en)** - Required
+- **French (fr)** - Required  
+- **Russian (ru)** - Required
+- **Czech (cs)** - Required
+- **Italian (it)** - Required
+- **Spanish (es)** - Required
+
+**Implementation Details:**
+- All multilingual fields use `field_languageCode` format (e.g., `name_de`, `description_en`)
+- All language variants are required fields
+- Only German names have unique constraints
+- Administrator model remains single-language (name only)
 
 ### 🔧 Recent Updates (Latest Session)
 - Implemented Amenities system with full CRUD API
@@ -170,6 +235,9 @@ npm run lint:fix
 - Configured AdminJS with proper reference relationships
 - Organized AdminJS navigation with grouped resources under "Lodgings"
 - Implemented global error handling for clean JSON API responses
+- **Added comprehensive multilingual support** for all content models
+- All multilingual fields made required (7 languages total)
+- Reverted Administrator model to single-language name field
 
 ## Known Issues & Solutions
 
