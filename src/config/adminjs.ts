@@ -4,6 +4,7 @@ import LodgingModel from "../models/lodgingModel";
 import AdministratorModel from "../models/administratorModel";
 import AmenityModel from "../models/amenityModel";
 import LodgingServiceModel from "../models/lodgingServiceModel";
+import ArticleModel from "../models/articleModel";
 import { componentLoader, Components } from "../admin/components";
 import { dashboardHandler } from "../admin/handlers/dashboardHandler";
 
@@ -125,6 +126,33 @@ const setupAdminJS = () => {
             navigation: {
               name: "Lodgings",
               icon: "Settings",
+            },
+          },
+        },
+        {
+          resource: ArticleModel,
+          options: {
+            navigation: {
+              name: "Lodgings",
+              icon: "FileText",
+            },
+            properties: {
+              lodging: {
+                type: "reference",
+                reference: "Lodgings",
+              },
+              position: {
+                isVisible: {
+                  list: true,
+                  filter: true,
+                  show: true,
+                  edit: false,
+                },
+              },
+            },
+            sort: {
+              direction: "asc",
+              sortBy: "position",
             },
           },
         },
