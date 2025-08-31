@@ -38,18 +38,21 @@ npm run lint:fix
 │   │   ├── landlordModel.ts        # Property owners
 │   │   ├── lodgingModel.ts         # Properties/accommodations
 │   │   ├── amenityModel.ts         # Property amenities
-│   │   └── lodgingServiceModel.ts  # Property services
+│   │   ├── lodgingServiceModel.ts  # Property services
+│   │   └── articleModel.ts         # Lodging-related articles
 │   ├── controllers/                # Business logic
 │   │   ├── lodgingController.ts    # Lodging CRUD operations
 │   │   ├── landlordsController.ts  # Landlord operations
 │   │   ├── amenityController.ts    # Amenity operations
 │   │   ├── lodgingServiceController.ts # Service operations
+│   │   ├── articleController.ts    # Article operations
 │   │   └── errorController.ts      # Global error handling
 │   ├── routes/                     # API routes
 │   │   ├── lodgingsRouter.ts       # /api/v1/lodgings
 │   │   ├── landlordsRouter.ts      # /api/v1/landlords
 │   │   ├── amenitiesRouter.ts      # /api/v1/amenities
-│   │   └── lodgingServicesRouter.ts # /api/v1/lodging-services
+│   │   ├── lodgingServicesRouter.ts # /api/v1/lodging-services
+│   │   └── articlesRouter.ts       # /api/v1/articles
 │   ├── middleware/                 # Custom middleware
 │   │   ├── adminAuth.ts            # AdminJS authentication
 │   │   └── errorHandler.ts         # Error handling middleware
@@ -94,6 +97,12 @@ npm run lint:fix
    - Admin user management for AdminJS access
    - Authentication middleware
 
+6. **Articles System**
+   - Lodging-specific articles via `/api/v1/articles`
+   - Multilingual content (title, subtitle, description in 7 languages)
+   - Position-based ordering with automatic management
+   - Coupled to lodgings with ObjectId references
+
 #### AdminJS Integration
 - Custom dashboard with authentication
 - Resource management for all models
@@ -106,6 +115,7 @@ npm run lint:fix
     └── 🏢 Lodgings
     └── ⭐ Amenities  
     └── ⚙️ LodgingServices
+    └── 📄 Articles
   ```
 - Reference relationships properly configured
 - Password fields hidden in lists/filters
@@ -211,8 +221,39 @@ npm run lint:fix
 }
 ```
 
+#### Articles Model (Multilingual)
+```typescript
+{
+  title_de: String (required)
+  title_en: String (required)
+  title_fr: String (required)
+  title_ru: String (required)
+  title_cs: String (required)
+  title_it: String (required)
+  title_es: String (required)
+  subtitle_de: String (required)
+  subtitle_en: String (required)
+  subtitle_fr: String (required)
+  subtitle_ru: String (required)
+  subtitle_cs: String (required)
+  subtitle_it: String (required)
+  subtitle_es: String (required)
+  description_de: String (required)
+  description_en: String (required)
+  description_fr: String (required)
+  description_ru: String (required)
+  description_cs: String (required)
+  description_it: String (required)
+  description_es: String (required)
+  imageLink: String (required)
+  position: Number (required, auto-generated)
+  lodging: ObjectId (ref: "Lodgings", required)
+  timestamps: true
+}
+```
+
 ### 🌍 Multilingual Support
-All content models (Lodgings, Amenities, LodgingServices) support 7 languages:
+All content models (Lodgings, Amenities, LodgingServices, Articles) support 7 languages:
 - **German (de)** - Primary language (unique constraints)
 - **English (en)** - Required
 - **French (fr)** - Required  
@@ -238,6 +279,30 @@ All content models (Lodgings, Amenities, LodgingServices) support 7 languages:
 - **Added comprehensive multilingual support** for all content models
 - All multilingual fields made required (7 languages total)
 - Reverted Administrator model to single-language name field
+- **Implemented Articles system with advanced features**:
+  - Multilingual title, subtitle, description fields (7 languages)
+  - Position-based ordering with automatic management
+  - Pre-save middleware for auto-position assignment
+  - Intelligent position reordering on delete/update
+  - Lodging-specific article filtering
+  - AdminJS integration with FileText icon and readonly position
+  - Created sample article about tourist tax ("Ortsübliche Kurtaxe")
+
+### 📊 **API Endpoints Overview**
+```
+/api/v1/lodgings              # Lodging management
+/api/v1/amenities             # Amenity management  
+/api/v1/lodging-services      # Service management
+/api/v1/articles              # Article management
+  ├── GET /                   # All articles
+  ├── POST /                  # Create article
+  ├── GET /:id               # Single article
+  ├── PATCH /:id             # Update article  
+  ├── DELETE /:id            # Delete article
+  ├── PATCH /:id/position    # Update position
+  └── GET /lodging/:id       # Articles by lodging
+/api/v1/landlords             # Landlord management
+```
 
 ## Known Issues & Solutions
 
