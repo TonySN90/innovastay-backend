@@ -28,7 +28,6 @@ const lodgingSchema = new mongoose.Schema({
   amenities: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Amenity",
-    required: true,
   }],
   services: {
     type: [String],

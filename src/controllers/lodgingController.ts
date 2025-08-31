@@ -5,7 +5,7 @@ import { AppError } from "../utils/appError";
 
 export const getAllLodgings = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const lodgings = await Lodging.find();
+    const lodgings = await Lodging.find().populate('amenities', 'name description');
 
     if (!lodgings || lodgings.length === 0) {
       next(new AppError("No lodgings found", 404));
@@ -25,7 +25,8 @@ export const getAllLodgings = catchAsync(
 
 export const createLodging = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const lodging = await Lodging.create(req.body);
+    const newLodging = await Lodging.create(req.body);
+    const lodging = await Lodging.findById(newLodging._id).populate('amenities', 'name description');
 
     res.status(201).json({
       status: "success",
