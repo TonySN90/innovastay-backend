@@ -27,7 +27,7 @@ const lodgingSchema = new mongoose.Schema({
   },
   amenities: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Amenity",
+    ref: "Amenities",
   }],
   services: {
     type: [String],

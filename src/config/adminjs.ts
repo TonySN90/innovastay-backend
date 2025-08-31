@@ -2,6 +2,7 @@ import AdminJS from "adminjs";
 import LandlordModel from "../models/landlordModel";
 import LodgingModel from "../models/lodgingModel";
 import AdministratorModel from "../models/administratorModel";
+import AmenityModel from "../models/amenityModel";
 import { componentLoader, Components } from "../admin/components";
 import { dashboardHandler } from "../admin/handlers/dashboardHandler";
 
@@ -84,6 +85,14 @@ const setupAdminJS = () => {
           },
         },
         {
+          resource: AmenityModel,
+          options: {
+            navigation: {
+              icon: "Star",
+            },
+          },
+        },
+        {
           resource: LodgingModel,
           options: {
             navigation: {
@@ -95,7 +104,8 @@ const setupAdminJS = () => {
                 isArray: true,
               },
               amenities: {
-                type: "string",
+                type: "reference",
+                reference: "Amenities",
                 isArray: true,
               },
               services: {
