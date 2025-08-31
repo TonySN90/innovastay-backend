@@ -14,6 +14,7 @@ import {
   showLoginForm,
 } from "./src/middleware/adminAuth";
 import amenitiesRouter from "./src/routes/amenitiesRouter";
+import lodgingServicesRouter from "./src/routes/lodgingServicesRouter";
 import globalErrorHandler from "./src/controllers/errorController";
 
 const createApp = async (): Promise<Application> => {
@@ -46,6 +47,7 @@ const createApp = async (): Promise<Application> => {
   app.use("/api/v1/landlords", landlordsRouter);
   app.use("/api/v1/lodgings", lodgingsRouter);
   app.use("/api/v1/amenities", amenitiesRouter);
+  app.use("/api/v1/lodging-services", lodgingServicesRouter);
 
   // Admin authentication routes
   app.get("/admin-login", showLoginForm);
