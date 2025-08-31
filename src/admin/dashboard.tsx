@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, H1, H2, H3, Text, Button } from "@adminjs/design-system";
+import { MapPin, Stars } from "lucide-react";
 
 interface DashboardData {
   totalLandlords: number;
@@ -87,7 +88,7 @@ const Dashboard: React.FC<any> = (props) => {
   if (!dashboardData) {
     return (
       <Box p="xl">
-        <H1>🏠 Innovastay Dashboard</H1>
+        <H1>Innovastay Dashboard</H1>
         <Text>Lade Dashboard-Daten...</Text>
         <Text fontSize="sm" color="grey60">
           Schauen Sie in die Browser-Konsole für Debug-Informationen
@@ -111,7 +112,7 @@ const Dashboard: React.FC<any> = (props) => {
     <Box p="xl">
       {/* Header */}
       <Box mb="xl">
-        <H1>🏠 Innovastay Dashboard</H1>
+        <H1>Dashboard</H1>
         <Text>
           Hier finden Sie alle wichtigen Statistiken und Analysen Ihrer
           Plattform
@@ -120,7 +121,7 @@ const Dashboard: React.FC<any> = (props) => {
 
       {/* Main Statistics */}
       <Box mb="xl">
-        <H2 mb="lg">Hauptstatistiken</H2>
+        <H3 mb="lg">Hauptstatistiken</H3>
         <Box
           style={{
             display: "grid",
@@ -138,10 +139,18 @@ const Dashboard: React.FC<any> = (props) => {
               position: "relative",
             }}
           >
-            <Box style={{ position: "absolute", top: "16px", right: "16px", opacity: 0.3, fontSize: "24px" }}>
+            <Box
+              style={{
+                position: "absolute",
+                top: "16px",
+                right: "16px",
+                opacity: 0.3,
+                fontSize: "24px",
+              }}
+            >
               👥
             </Box>
-            <H3 color="primary">{totalLandlords.toLocaleString()}</H3>
+            <H2 color="primary">{totalLandlords.toLocaleString()}</H2>
             <Text fontWeight="bold">Gesamte Vermieter</Text>
             <Text fontSize="sm">{recentLandlords} neue in 30 Tagen</Text>
           </Box>
@@ -156,7 +165,15 @@ const Dashboard: React.FC<any> = (props) => {
               position: "relative",
             }}
           >
-            <Box style={{ position: "absolute", top: "16px", right: "16px", opacity: 0.3, fontSize: "24px" }}>
+            <Box
+              style={{
+                position: "absolute",
+                top: "16px",
+                right: "16px",
+                opacity: 0.3,
+                fontSize: "24px",
+              }}
+            >
               🏢
             </Box>
             <H3 color="success">{totalLodgings.toLocaleString()}</H3>
@@ -174,7 +191,15 @@ const Dashboard: React.FC<any> = (props) => {
               position: "relative",
             }}
           >
-            <Box style={{ position: "absolute", top: "16px", right: "16px", opacity: 0.3, fontSize: "24px" }}>
+            <Box
+              style={{
+                position: "absolute",
+                top: "16px",
+                right: "16px",
+                opacity: 0.3,
+                fontSize: "24px",
+              }}
+            >
               💰
             </Box>
             <H3 color="warning">€{averagePrice.toLocaleString()}</H3>
@@ -192,7 +217,15 @@ const Dashboard: React.FC<any> = (props) => {
               position: "relative",
             }}
           >
-            <Box style={{ position: "absolute", top: "16px", right: "16px", opacity: 0.3, fontSize: "24px" }}>
+            <Box
+              style={{
+                position: "absolute",
+                top: "16px",
+                right: "16px",
+                opacity: 0.3,
+                fontSize: "24px",
+              }}
+            >
               🛡️
             </Box>
             <H3 color="danger">{totalAdmins}</H3>
@@ -205,7 +238,9 @@ const Dashboard: React.FC<any> = (props) => {
       {/* Top Locations */}
       {topLocations.length > 0 && (
         <Box mb="xl">
-          <H2 mb="lg">📍 Top Standorte</H2>
+          <H3 mb="lg">
+            <MapPin /> Top Standorte
+          </H3>
           <Box
             p="lg"
             bg="white"
@@ -248,7 +283,10 @@ const Dashboard: React.FC<any> = (props) => {
       {/* Top Amenities */}
       {topAmenities.length > 0 && (
         <Box mb="xl">
-          <H2 mb="lg">⭐ Beliebteste Ausstattungen</H2>
+          <H3 mb="lg">
+            {" "}
+            <Stars /> Beliebteste Ausstattungen
+          </H3>
           <Box
             p="lg"
             bg="white"
