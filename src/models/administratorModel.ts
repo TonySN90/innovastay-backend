@@ -16,6 +16,7 @@ const administratorSchema = new mongoose.Schema<IAdministrator>({
   name: {
     type: String,
     required: [true, "Administrator must have a name"],
+    trim: true,
   },
   email: {
     type: String,

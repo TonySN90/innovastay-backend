@@ -1,9 +1,40 @@
 import mongoose from "mongoose";
 
 const lodgingSchema = new mongoose.Schema({
-  name: {
+  name_de: {
     type: String,
-    required: [true, "Lodging must have a name"],
+    required: [true, "Lodging must have a German name"],
+    trim: true,
+  },
+  name_en: {
+    type: String,
+    required: [true, "Lodging must have an English name"],
+    trim: true,
+  },
+  name_fr: {
+    type: String,
+    required: [true, "Lodging must have a French name"],
+    trim: true,
+  },
+  name_ru: {
+    type: String,
+    required: [true, "Lodging must have a Russian name"],
+    trim: true,
+  },
+  name_cs: {
+    type: String,
+    required: [true, "Lodging must have a Czech name"],
+    trim: true,
+  },
+  name_it: {
+    type: String,
+    required: [true, "Lodging must have an Italian name"],
+    trim: true,
+  },
+  name_es: {
+    type: String,
+    required: [true, "Lodging must have a Spanish name"],
+    trim: true,
   },
   maxNumGuests: {
     type: Number,
@@ -13,9 +44,33 @@ const lodgingSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Lodging must have a price per night"],
   },
-  description: {
+  description_de: {
     type: String,
-    required: [true, "Lodging must have a description"],
+    required: [true, "Lodging must have a German description"],
+  },
+  description_en: {
+    type: String,
+    required: [true, "Lodging must have an English description"],
+  },
+  description_fr: {
+    type: String,
+    required: [true, "Lodging must have a French description"],
+  },
+  description_ru: {
+    type: String,
+    required: [true, "Lodging must have a Russian description"],
+  },
+  description_cs: {
+    type: String,
+    required: [true, "Lodging must have a Czech description"],
+  },
+  description_it: {
+    type: String,
+    required: [true, "Lodging must have an Italian description"],
+  },
+  description_es: {
+    type: String,
+    required: [true, "Lodging must have a Spanish description"],
   },
   location: {
     type: String,
