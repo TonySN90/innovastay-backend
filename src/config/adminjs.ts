@@ -85,17 +85,10 @@ const setupAdminJS = () => {
           },
         },
         {
-          resource: AmenityModel,
-          options: {
-            navigation: {
-              icon: "Star",
-            },
-          },
-        },
-        {
           resource: LodgingModel,
           options: {
             navigation: {
+              name: "Lodgings",
               icon: "Building",
             },
             properties: {
@@ -112,6 +105,15 @@ const setupAdminJS = () => {
                 type: "string",
                 isArray: true,
               },
+            },
+          },
+        },
+        {
+          resource: AmenityModel,
+          options: {
+            navigation: {
+              name: "Lodgings",
+              icon: "Star",
             },
           },
         },
