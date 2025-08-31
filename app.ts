@@ -20,20 +20,22 @@ const createApp = async (): Promise<Application> => {
   const app: Application = express();
 
   // View engine setup
-  app.set('view engine', 'ejs');
-  app.set('views', path.join(__dirname, 'views'));
+  app.set("view engine", "ejs");
+  app.set("views", path.join(__dirname, "views"));
 
   // Session middleware
-  app.use(session({
-    secret: process.env.SESSION_SECRET || 'innovastay-session-secret-key',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: false, // Set to true in production with HTTPS
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
-    },
-  }));
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET || "innovastay-session-secret-key",
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        secure: false, // Set to true in production with HTTPS
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      },
+    }),
+  );
 
   app.use(cors());
   app.use(express.json());
@@ -43,6 +45,7 @@ const createApp = async (): Promise<Application> => {
   app.use("/api/v1/guests", testRoutes);
   app.use("/api/v1/landlords", landlordsRouter);
   app.use("/api/v1/lodgings", lodgingsRouter);
+  app.use("/api/v1/amenities", amenitiesRouter);
 
   // Admin authentication routes
   app.get("/admin-login", showLoginForm);
