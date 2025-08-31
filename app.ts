@@ -7,7 +7,14 @@ import landlordsRouter from "./src/routes/landlordsRouter";
 import { AppError } from "./src/utils/appError";
 import lodgingsRouter from "./src/routes/lodgingsRouter";
 import { setupAdminJS } from "./src/config/adminjs";
-import { requireAdminAuth, loginAdmin, logoutAdmin, showLoginForm } from "./src/middleware/adminAuth";
+import {
+  requireAdminAuth,
+  loginAdmin,
+  logoutAdmin,
+  showLoginForm,
+} from "./src/middleware/adminAuth";
+import amenitiesRouter from "./src/routes/amenitiesRouter";
+import globalErrorHandler from "./src/controllers/errorController";
 
 const createApp = async (): Promise<Application> => {
   const app: Application = express();
@@ -41,7 +48,7 @@ const createApp = async (): Promise<Application> => {
   app.get("/admin-login", showLoginForm);
   app.post("/admin-login", loginAdmin);
   app.get("/admin-logout", logoutAdmin);
-  
+
   // Handle AdminJS internal logout route
   app.get("/admin/logout", logoutAdmin);
   app.post("/admin/logout", logoutAdmin);
@@ -49,17 +56,17 @@ const createApp = async (): Promise<Application> => {
   // Protected AdminJS routes
   try {
     const { adminRouter } = setupAdminJS();
-    
+
     // Smart middleware that allows logout but protects other routes
     app.use("/admin", (req, res, next) => {
       // Allow logout routes to pass through
-      if (req.path === '/logout') {
+      if (req.path === "/logout") {
         return next();
       }
       // Check authentication for all other admin routes
       return requireAdminAuth(req, res, next);
     });
-    
+
     app.use("/admin", adminRouter);
   } catch (error) {
     console.error("Failed to setup AdminJS:", error);
@@ -68,6 +75,8 @@ const createApp = async (): Promise<Application> => {
   app.get("/", (req, res) => {
     res.json({ message: "Innovastay Backend API" });
   });
+
+  app.use(globalErrorHandler);
 
   return app;
 };
