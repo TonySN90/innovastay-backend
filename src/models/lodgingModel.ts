@@ -29,10 +29,10 @@ const lodgingSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Amenities",
   }],
-  services: {
-    type: [String],
-    required: [true, "Lodging must have services"],
-  },
+  services: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "LodgingServices",
+  }],
   landlord: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Landlord",
