@@ -30,6 +30,29 @@ npm install
 - Recent work includes AdminJS integration and login functionality
 - Project includes guests, landlords, and lodging management features
 
+## Known Issues & Solutions
+
+### AdminJS Custom Dashboard Not Loading
+**Problem**: Custom dashboard components are not displayed, showing default AdminJS dashboard instead.
+
+**Solution**: 
+1. Delete the `.adminjs` folder to force recompilation:
+   ```bash
+   rm -rf .adminjs
+   ```
+2. Add `adminJs.watch()` after AdminJS instance creation in config:
+   ```typescript
+   const adminJs = new AdminJS({...});
+   adminJs.watch(); // Add this line
+   const adminRouter = AdminJSExpress.buildRouter(adminJs);
+   ```
+
+**Root Cause**: AdminJS needs to bundle custom components and the `.adminjs` cache folder can prevent updates from being recognized. The `watch()` method enables component bundling.
+
+**References**: 
+- [GitHub Issue #1671](https://github.com/SoftwareBrothers/adminjs/issues/1671)
+- [Stack Overflow Discussion](https://stackoverflow.com/questions/75290441/custom-dashboard-for-adminjs-not-working-in-production)
+
 ## AdminJS - Docs
 - [AdminJS](https://adminjs.io/)
 - [AdminJS - Writing your own components](https://docs.adminjs.co/ui-customization/writing-your-own-components)
