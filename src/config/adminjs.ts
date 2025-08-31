@@ -2,6 +2,8 @@ import AdminJS from "adminjs";
 import LandlordModel from "../models/landlordModel";
 import LodgingModel from "../models/lodgingModel";
 import AdministratorModel from "../models/administratorModel";
+import { componentLoader, Components } from "../admin/components";
+import { dashboardHandler } from "../admin/handlers/dashboardHandler";
 
 const setupAdminJS = () => {
   try {
@@ -15,10 +17,18 @@ const setupAdminJS = () => {
     });
 
     const adminJs = new AdminJS({
+      dashboard: {
+        component: Components.Dashboard,
+        handler: dashboardHandler,
+      },
+      componentLoader,
       resources: [
         {
           resource: AdministratorModel,
           options: {
+            navigation: {
+              icon: "User",
+            },
             properties: {
               password: {
                 isVisible: {
@@ -50,6 +60,9 @@ const setupAdminJS = () => {
         {
           resource: LandlordModel,
           options: {
+            navigation: {
+              icon: "Home",
+            },
             properties: {
               password: {
                 isVisible: {
@@ -73,6 +86,9 @@ const setupAdminJS = () => {
         {
           resource: LodgingModel,
           options: {
+            navigation: {
+              icon: "Building",
+            },
             properties: {
               images: {
                 type: "string",
@@ -112,6 +128,7 @@ const setupAdminJS = () => {
     });
 
     console.log("Setting up AdminJS with custom authentication...");
+    adminJs.watch();
     const adminRouter = AdminJSExpress.buildRouter(adminJs);
 
     return { adminJs, adminRouter };
