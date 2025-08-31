@@ -25,10 +25,11 @@ const lodgingSchema = new mongoose.Schema({
     type: [String],
     required: [true, "Lodging must have images"],
   },
-  amenities: {
-    type: [String],
-    required: [true, "Lodging must have amenities"],
-  },
+  amenities: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Amenity",
+    required: true,
+  }],
   services: {
     type: [String],
     required: [true, "Lodging must have services"],
