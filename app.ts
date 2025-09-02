@@ -15,6 +15,7 @@ import {
 } from "./src/middleware/adminAuth";
 import amenitiesRouter from "./src/routes/amenitiesRouter";
 import lodgingServicesRouter from "./src/routes/lodgingServicesRouter";
+import lodgingRoomsRouter from "./src/routes/lodgingRoomsRouter";
 import articlesRouter from "./src/routes/articlesRouter";
 import globalErrorHandler from "./src/controllers/errorController";
 
@@ -49,6 +50,7 @@ const createApp = async (): Promise<Application> => {
   app.use("/api/v1/lodgings", lodgingsRouter);
   app.use("/api/v1/amenities", amenitiesRouter);
   app.use("/api/v1/lodging-services", lodgingServicesRouter);
+  app.use("/api/v1/lodging-rooms", lodgingRoomsRouter);
   app.use("/api/v1/articles", articlesRouter);
 
   // Admin authentication routes
