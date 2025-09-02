@@ -51,6 +51,12 @@ const lodgingSchema = new mongoose.Schema({
       ref: "LodgingServices",
     },
   ],
+  rooms: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "LodgingRooms",
+    },
+  ],
   landlord: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Landlord",
