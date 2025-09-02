@@ -5,10 +5,12 @@ import { AppError } from "../utils/appError";
 
 export const getAllArticles = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const articles = await Article.find().populate(
-      "lodging",
-      "name_de name_en",
-    );
+    const articles = await Article.find();
+
+    if (!articles || articles.length === 0) {
+      next(new AppError("No articles found", 404));
+      return;
+    }
 
     res.status(200).json({
       status: "success",
